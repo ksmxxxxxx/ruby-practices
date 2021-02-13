@@ -12,17 +12,6 @@ require_relative 'show'
 class Ls
   attr_reader :show
 
-  def options_parse
-    opt = OptionParser.new
-    params = {}
-
-    opt.on('-a')
-    opt.on('-r')
-    opt.on('-l')
-    opt.parse!(ARGV, into: params)
-    params
-  end
-
   def call
     option = options_parse
 
@@ -33,6 +22,19 @@ class Ls
     option.key?(:a) ? show.list_contain_dotfile : show.list_without_dotfile
     show.list_reverse if option.key?(:r)
     option.key?(:l) ? long_format : short_format
+  end
+
+  private
+
+  def options_parse
+    opt = OptionParser.new
+    params = {}
+
+    opt.on('-a')
+    opt.on('-r')
+    opt.on('-l')
+    opt.parse!(ARGV, into: params)
+    params
   end
 
   def short_format
