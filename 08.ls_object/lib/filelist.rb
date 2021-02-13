@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './lib/filedata'
+require_relative 'filedata'
 
 class FileList
   attr_reader :target, :files

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'io/console/size'
-require './lib/filelist'
+require_relative 'filelist'
 
 class Show
   attr_reader :list, :files

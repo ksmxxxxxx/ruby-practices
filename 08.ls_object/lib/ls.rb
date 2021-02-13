@@ -5,9 +5,9 @@ require 'etc'
 require 'optparse'
 require 'io/console/size'
 
-require './lib/filedata'
-require './lib/filelist'
-require './lib/show'
+require_relative 'filedata'
+require_relative 'filelist'
+require_relative 'show'
 
 class Ls
   attr_reader :show
