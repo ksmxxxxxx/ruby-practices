@@ -3,7 +3,7 @@
 require 'io/console/size'
 require_relative 'filelist'
 
-class Show
+class Display
   attr_reader :list, :files
 
   def initialize(target)

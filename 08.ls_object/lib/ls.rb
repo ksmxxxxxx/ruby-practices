@@ -7,10 +7,10 @@ require 'io/console/size'
 
 require_relative 'filedata'
 require_relative 'filelist'
-require_relative 'show'
+require_relative 'display'
 
 class Ls
-  attr_reader :show
+  attr_reader :display
 
   def call
     options = parse_options
@@ -18,10 +18,10 @@ class Ls
 
     return print "ls: #{target} : No such file or directory" unless File.exist?(target)
 
-    @show = Show.new(target)
+    @display = Display.new(target)
 
-    options.key?(:a) ? show.list_contain_dotfile : show.list_without_dotfile
-    show.list_reverse if options.key?(:r)
+    options.key?(:a) ? display.list_contain_dotfile : display.list_without_dotfile
+    display.list_reverse if options.key?(:r)
     options.key?(:l) ? long_format : short_format
   end
 
@@ -39,12 +39,12 @@ class Ls
   end
 
   def short_format
-    show.one_liner? ? show.short_format : show.short_format_split_into_columns
+    display.one_liner? ? display.short_format : display.short_format_split_into_columns
   end
 
   def long_format
-    show.list_file_stat
-    show.long_format
+    display.list_file_stat
+    display.long_format
   end
 end
 
