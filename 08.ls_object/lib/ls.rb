@@ -14,10 +14,11 @@ class Ls
 
   def call
     options = parse_options
+    target = ARGV[0] || '.'
 
-    return print "ls: #{ARGV[0]} : No such file or directory" unless File.exist?(ARGV[0] || '.')
+    return print "ls: #{target} : No such file or directory" unless File.exist?(target)
 
-    @show = Show.new(ARGV[0])
+    @show = Show.new(target)
 
     options.key?(:a) ? show.list_contain_dotfile : show.list_without_dotfile
     show.list_reverse if options.key?(:r)
