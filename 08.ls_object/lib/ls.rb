@@ -13,20 +13,20 @@ class Ls
   attr_reader :show
 
   def call
-    option = options_parse
+    options = parse_options
 
     return print "ls: #{ARGV[0]} : No such file or directory" unless File.exist?(ARGV[0] || '.')
 
     @show = Show.new(ARGV[0])
 
-    option.key?(:a) ? show.list_contain_dotfile : show.list_without_dotfile
-    show.list_reverse if option.key?(:r)
-    option.key?(:l) ? long_format : short_format
+    options.key?(:a) ? show.list_contain_dotfile : show.list_without_dotfile
+    show.list_reverse if options.key?(:r)
+    options.key?(:l) ? long_format : short_format
   end
 
   private
 
-  def options_parse
+  def parse_options
     opt = OptionParser.new
     params = {}
 
