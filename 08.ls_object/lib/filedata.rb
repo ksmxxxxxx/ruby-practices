@@ -5,6 +5,23 @@ require 'date'
 class FileData
   attr_reader :target, :file, :fs, :type, :mode, :nlink, :uid, :gid, :size, :updated_at, :blocks
 
+  FILETYPE_CONVERTING_CODE = {
+    'file' => '-',
+    'directory' => 'd',
+    'link' => 'l'
+  }
+
+  PERMISSION_CONVERTING_CODE = {
+    0 => '---',
+    1 => '--x',
+    2 => '-w-',
+    3 => '-wx',
+    4 => 'r--',
+    5 => 'r-x',
+    6 => 'rw-',
+    7 => 'rwx'
+  }
+
   def initialize(target, file)
     @target = target
     @file = file
@@ -32,28 +49,12 @@ class FileData
   end
 
   def filetype
-    filetype_converting_code = {
-      'file' => '-',
-      'directory' => 'd',
-      'link' => 'l'
-    }
-    filetype_converting_code[type]
+    FILETYPE_CONVERTING_CODE[type]
   end
 
   def permission
-    permission_converting_code = {
-      0 => '---',
-      1 => '--x',
-      2 => '-w-',
-      3 => '-wx',
-      4 => 'r--',
-      5 => 'r-x',
-      6 => 'rw-',
-      7 => 'rwx'
-    }
-
     owner, group, user = mode.to_s(8)[-3, 3].chars.map(&:to_i)
-    permission_converting_code[owner] + permission_converting_code[group] + permission_converting_code[user]
+    PERMISSION_CONVERTING_CODE[owner] + PERMISSION_CONVERTING_CODE[group] + PERMISSION_CONVERTING_CODE[user]
   end
 
   def name_or_symlink
