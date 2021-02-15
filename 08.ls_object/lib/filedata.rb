@@ -45,7 +45,7 @@ class FileData
   end
 
   def filetype_permission
-    filetype + permission
+    "#{filetype}#{permission}"
   end
 
   def filetype
