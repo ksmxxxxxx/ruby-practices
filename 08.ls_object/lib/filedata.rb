@@ -25,7 +25,8 @@ class FileData
   def initialize(target, file)
     @target = target
     @file = file
-    @fs = File.lstat("#{target}/#{file}")
+    @file_path = "#{target}/#{file}"
+    @fs = File.lstat(@file_path)
     @type = fs.ftype
     @mode = fs.mode
     @nlink = fs.nlink.to_s
@@ -60,7 +61,7 @@ class FileData
 
   def name_or_symlink
     if type == 'link'
-      "#{file} -> #{File.readlink("#{target}/#{file}")}"
+      "#{file} -> #{File.readlink(@file_path)}"
     else
       file
     end
