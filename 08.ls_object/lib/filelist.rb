@@ -3,21 +3,21 @@
 require_relative 'filedata'
 
 class FileList
-  attr_reader :target, :files
+  attr_reader :dirname, :files
 
-  def initialize(target)
-    @target = target || Dir.pwd
+  def initialize(dirname)
+    @dirname = dirname || Dir.pwd
   end
 
   def file_stat
-    files.map { |file| FileData.new(target, file) }
+    files.map { |fname| FileData.new(dirname, fname) }
   end
 
   def contain_dotfile
-    @files = Dir.glob('*', File::FNM_DOTMATCH, base: target).sort
+    @files = Dir.glob('*', File::FNM_DOTMATCH, base: dirname).sort
   end
 
   def without_dotfile
-    @files = Dir.glob('*', base: target).sort
+    @files = Dir.glob('*', base: dirname).sort
   end
 end
