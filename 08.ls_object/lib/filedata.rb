@@ -38,7 +38,7 @@ class FileData
   end
 
   def date
-    if updated_at.strftime('%Y-%m-%d') <= Date.today.prev_month(6).strftime('%Y-%m-%d')
+    if updated_at.to_date <= Date.today.prev_month(6)
       updated_at.strftime('%_m %_d  %Y')
     else
       updated_at.strftime('%_m %_d %H:%M')
