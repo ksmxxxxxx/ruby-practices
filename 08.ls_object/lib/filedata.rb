@@ -3,7 +3,7 @@
 require 'date'
 
 class FileData
-  attr_reader :target, :file, :fs, :type, :mode, :nlink, :uid, :gid, :size, :updated_at, :blocks
+  attr_reader :target, :file, :type, :mode, :nlink, :uid, :gid, :size, :updated_at, :blocks
 
   FILETYPE_CONVERTING_CODE = {
     'file' => '-',
@@ -26,7 +26,7 @@ class FileData
     @target = target
     @file = file
     @file_path = "#{target}/#{file}"
-    @fs = File.lstat(@file_path)
+    fs = File.lstat(@file_path)
     @type = fs.ftype
     @mode = fs.mode
     @nlink = fs.nlink.to_s
