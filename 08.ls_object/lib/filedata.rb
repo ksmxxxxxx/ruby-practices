@@ -53,8 +53,9 @@ class FileData
   end
 
   def permission
-    owner, group, user = mode.to_s(8)[-3, 3].chars.map(&:to_i)
-    PERMISSION_CONVERTING_CODE[owner] + PERMISSION_CONVERTING_CODE[group] + PERMISSION_CONVERTING_CODE[user]
+    mode.to_s(8)[-3, 3].chars.map do |num|
+      PERMISSION_CONVERTING_CODE[num.to_i]
+    end.join
   end
 
   def name_or_symlink
