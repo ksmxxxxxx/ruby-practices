@@ -14,10 +14,10 @@ class FileList
   end
 
   def contain_dotfile
-    @files = Dir.glob('*', File::FNM_DOTMATCH, base: dirname).sort
+    @files = Dir.glob('*', File::FNM_DOTMATCH, base: dirname)
   end
 
   def without_dotfile
-    @files = Dir.glob('*', base: dirname).sort
+    @files = Dir.glob('*', base: dirname)
   end
 end

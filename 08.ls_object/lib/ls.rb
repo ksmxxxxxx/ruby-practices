@@ -21,7 +21,7 @@ class Ls
     @display = Display.new(target)
 
     options.key?(:a) ? display.list_contain_dotfile : display.list_without_dotfile
-    display.list_reverse if options.key?(:r)
+    options.key?(:r) ? display.list_reverse : display.list_sort
     options.key?(:l) ? long_format : short_format
   end
 

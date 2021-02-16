@@ -29,6 +29,10 @@ class Display
     files.reverse!
   end
 
+  def list_sort
+    files.sort!
+  end
+
   def one_liner?
     column_line_count <= 1
   end
