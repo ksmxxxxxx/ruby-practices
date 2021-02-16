@@ -12,11 +12,11 @@ require_relative 'display'
 class Ls
   attr_reader :display
 
-  def call
+  def ls
     options = parse_options
     target = ARGV[0] || '.'
 
-    return print "ls: #{target} : No such file or directory" unless File.exist?(target)
+    raise(ArgumentError, "#{target} is no such file or directory") unless File.exist?(target)
 
     @display = Display.new(target)
 
@@ -48,4 +48,4 @@ class Ls
   end
 end
 
-puts Ls.new.call
+puts Ls.new.ls
