@@ -15,6 +15,39 @@ class Display
     [total, *render_long_format].join("\n")
   end
 
+  def short_format
+    files.map { |f| f.ljust(max_name_length, ' ') }.join(' ')
+  end
+
+  def short_format_split_into_columns
+    transpose_files_row.map do |row|
+      row.map { |item| item.ljust(max_name_length, ' ') }.join(' ').rstrip
+    end.join("\n")
+  end
+
+  def list_reverse
+    files.reverse!
+  end
+
+  def one_liner?
+    column_line_count <= 1
+  end
+
+  # ここらへん@filesに渡しまくってるけど、一瞬メソッドのレシーバを渡せばいいだけでは？って思ったけど、ls.rbのオプションでインスタンス変数（メソッド）に入ってくる中身が変わるので、このままでいいのかも知れないとおもったけどどうなんだろう…
+  def list_file_stat
+    @files = list.file_stat
+  end
+
+  def list_contain_dotfile
+    @files = list.contain_dotfile
+  end
+
+  def list_without_dotfile
+    @files = list.without_dotfile
+  end
+
+  private
+
   def render_long_format
     files.map do |file|
       # ↓ここrubocop先生に怒られてるけど、どうなおしていいもんなのかがわからなかった
@@ -62,16 +95,6 @@ class Display
     files.sum(&:blocks)
   end
 
-  def short_format
-    files.map { |f| f.ljust(max_name_length, ' ') }.join(' ')
-  end
-
-  def short_format_split_into_columns
-    transpose_files_row.map do |row|
-      row.map { |item| item.ljust(max_name_length, ' ') }.join(' ').rstrip
-    end.join("\n")
-  end
-
   def transpose_files_row
     rows = files.each_slice(column_line_count).map { |f| f }
 
@@ -80,10 +103,6 @@ class Display
     count = column_line_count - rows.last.count
     count.times { rows.last << '' }
     rows.transpose
-  end
-
-  def one_liner?
-    column_line_count <= 1
   end
 
   def column_line_count
@@ -112,22 +131,5 @@ class Display
 
   def terminal_width
     IO.console_size[1]
-  end
-
-  def list_reverse
-    files.reverse!
-  end
-
-  # ここらへん@filesに渡しまくってるけど、一瞬メソッドのレシーバを渡せばいいだけでは？って思ったけど、ls.rbのオプションでインスタンス変数（メソッド）に入ってくる中身が変わるので、このままでいいのかも知れないとおもったけどどうなんだろう…
-  def list_file_stat
-    @files = list.file_stat
-  end
-
-  def list_contain_dotfile
-    @files = list.contain_dotfile
-  end
-
-  def list_without_dotfile
-    @files = list.without_dotfile
   end
 end
