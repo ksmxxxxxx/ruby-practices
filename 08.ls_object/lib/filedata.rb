@@ -3,13 +3,11 @@
 require 'date'
 
 class FileData
-  attr_reader :target, :file, :type, :mode, :nlink, :uid, :gid, :size, :updated_at, :blocks
-
   FILETYPE_CONVERTING_CODE = {
     'file' => '-',
     'directory' => 'd',
     'link' => 'l'
-  }
+  }.freeze
 
   PERMISSION_CONVERTING_CODE = {
     0 => '---',
@@ -20,7 +18,9 @@ class FileData
     5 => 'r-x',
     6 => 'rw-',
     7 => 'rwx'
-  }
+  }.freeze
+
+  attr_reader :target, :file, :type, :mode, :nlink, :uid, :gid, :size, :updated_at, :blocks
 
   def initialize(target, file)
     @target = target
