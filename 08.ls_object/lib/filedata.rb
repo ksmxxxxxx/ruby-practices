@@ -38,11 +38,12 @@ class FileData
   end
 
   def date
-    if updated_at.to_date <= Date.today.prev_month(6)
-      updated_at.strftime('%_m %_d  %Y')
-    else
-      updated_at.strftime('%_m %_d %H:%M')
-    end
+    time_or_year = older_than_month?(6) ? ' %Y' : '%H:%M'
+    updated_at.strftime("%_m %_d #{time_or_year}")
+  end
+
+  def older_than_month?(month)
+    updated_at.to_date <= Date.today.prev_month(month)
   end
 
   def filetype_permission
