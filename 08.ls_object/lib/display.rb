@@ -4,8 +4,6 @@ require 'io/console/size'
 require_relative 'filelist'
 
 class Display
-  attr_reader :list, :files
-
   def initialize(target)
     @list = FileList.new(target)
   end
@@ -51,6 +49,8 @@ class Display
   end
 
   private
+
+  attr_reader :list, :files
 
   def render_long_format
     files.map do |file|
