@@ -36,10 +36,6 @@ class Display
     files.sort!
   end
 
-  def one_liner
-    num_of_lines_needed == 1
-  end
-
   # ここらへん@filesに渡しまくってるけど、一瞬メソッドのレシーバを渡せばいいだけでは？って思ったけど、ls.rbのオプションでインスタンス変数（メソッド）に入ってくる中身が変わるので、このままでいいのかも知れないとおもったけどどうなんだろう…
   def list_file_stat
     @files = list.file_stats
@@ -56,6 +52,10 @@ class Display
   private
 
   attr_reader :list, :files
+
+  def one_liner
+    num_of_lines_needed == 1
+  end
 
   def render_long_format
     files.map do |file|
