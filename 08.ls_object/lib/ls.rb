@@ -18,7 +18,7 @@ class Ls
 
     options.key?(:a) ? display.list_contain_dotfile : display.list_without_dotfile
     options.key?(:r) ? display.list_reverse : display.list_sort
-    options.key?(:l) ? display.long_format : short_format
+    options.key?(:l) ? display.long_format : display.short_format
   end
 
   private
@@ -32,10 +32,6 @@ class Ls
     opt.on('-l')
     opt.parse!(ARGV, into: params)
     params
-  end
-
-  def short_format
-    display.one_liner? ? display.short_format : display.short_format_split_into_columns
   end
 end
 

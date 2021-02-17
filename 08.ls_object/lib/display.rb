@@ -15,6 +15,10 @@ class Display
   end
 
   def short_format
+    one_liner ? short_format_oneline : short_format_split_into_columns
+  end
+
+  def short_format_oneline
     files.map { |f| f.ljust(max_name_length, ' ') }.join(' ')
   end
 
@@ -32,7 +36,7 @@ class Display
     files.sort!
   end
 
-  def one_liner?
+  def one_liner
     num_of_lines_needed == 1
   end
 
