@@ -12,7 +12,7 @@ class Ls
     options = parse_options
     target = ARGV[0] || '.'
 
-    raise(ArgumentError, "#{target} is no such file or directory") unless File.exist?(target)
+    raise(ArgumentError, "ls: #{target} is no such file or directory") unless File.exist?(target)
 
     @display = Display.new(target)
 
@@ -35,4 +35,9 @@ class Ls
   end
 end
 
-puts Ls.new.ls
+begin
+  puts Ls.new.ls
+rescue ArgumentError => e
+  puts e.message
+  exit 1
+end
