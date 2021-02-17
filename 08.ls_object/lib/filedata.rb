@@ -10,7 +10,7 @@ class FileData
     'link' => 'l'
   }.freeze
 
-  PERMISSION_CONVERTING_CODE = {
+  PERMISSION_LABELS = {
     '0' => '---',
     '1' => '--x',
     '2' => '-w-',
@@ -57,7 +57,7 @@ class FileData
 
   def permission
     octal_digits = mode.to_s(8)[-3, 3].chars
-    octal_digits.map { |oct| PERMISSION_CONVERTING_CODE[oct] }.join
+    octal_digits.map { |oct| PERMISSION_LABELS[oct] }.join
   end
 
   def name_or_symlink
