@@ -89,7 +89,7 @@ class Display
   def transpose_files_row
     rows = files.each_slice(num_of_lines_needed).to_a
 
-    return unless rows.last.count <= num_of_lines_needed
+    return if num_of_lines_needed < rows.last.size
 
     count = num_of_lines_needed - rows.last.count
     count.times { rows.last << '' }
