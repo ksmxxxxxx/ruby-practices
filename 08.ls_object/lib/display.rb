@@ -61,7 +61,7 @@ class Display
 
   def long_format_of(file)
     [
-      file.filetype_permission.ljust(column_width(:filetype_permission), ' '),
+      file.filetype_permission,
       file.nlink.rjust(column_width(:nlink) + 2, ' '),
       ' ',
       file.uid.ljust(column_width(:uid) + 2, ' '),
