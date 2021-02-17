@@ -87,7 +87,7 @@ class Display
   end
 
   def transpose_files_row
-    rows = files.each_slice(num_of_lines_needed).map { |f| f }
+    rows = files.each_slice(num_of_lines_needed).to_a
 
     return unless rows.last.count <= num_of_lines_needed
 
