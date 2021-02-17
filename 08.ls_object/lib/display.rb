@@ -62,19 +62,19 @@ class Display
   def long_format_of(file)
     [
       file.filetype_permission,
-      file.nlink.rjust(column_width(:nlink) + 2, ' '),
+      file.nlink.rjust(column_max_width(:nlink) + 2, ' '),
       ' ',
-      file.uid.ljust(column_width(:uid) + 2, ' '),
-      file.gid.ljust(column_width(:gid) + 2, ' '),
-      file.size.rjust(column_width(:size), ' '),
+      file.uid.ljust(column_max_width(:uid) + 2, ' '),
+      file.gid.ljust(column_max_width(:gid) + 2, ' '),
+      file.size.rjust(column_max_width(:size), ' '),
       ' ',
-      file.date.rjust(column_width(:date), ' '),
+      file.date.rjust(column_max_width(:date), ' '),
       ' ',
       file.name_or_symlink
     ].join
   end
 
-  def column_width(attribute)
+  def column_max_width(attribute)
     files.map { |file| file.public_send(attribute).length }.max
   end
 
