@@ -18,7 +18,7 @@ class Ls
 
     options.key?(:a) ? display.list_contain_dotfile : display.list_without_dotfile
     options.key?(:r) ? display.list_reverse : display.list_sort
-    options.key?(:l) ? long_format : short_format
+    options.key?(:l) ? display.long_format : short_format
   end
 
   private
@@ -36,11 +36,6 @@ class Ls
 
   def short_format
     display.one_liner? ? display.short_format : display.short_format_split_into_columns
-  end
-
-  def long_format
-    display.list_file_stat
-    display.long_format
   end
 end
 

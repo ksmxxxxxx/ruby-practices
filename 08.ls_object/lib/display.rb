@@ -9,6 +9,7 @@ class Display
   end
 
   def long_format
+    list_file_stat
     total = "total #{blocks}"
     [total, *render_long_format].join("\n")
   end
