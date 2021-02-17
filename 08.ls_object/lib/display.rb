@@ -19,12 +19,12 @@ class Display
   end
 
   def short_format_oneline
-    files.map { |f| f.ljust(max_name_length, ' ') }.join(' ')
+    insert_file_name(files)
   end
 
   def short_format_split_into_columns
     transpose_files_row.map do |row|
-      row.map { |item| item.ljust(max_name_length, ' ') }.join(' ').rstrip
+      insert_file_name(row).rstrip
     end.join("\n")
   end
 
@@ -55,6 +55,10 @@ class Display
 
   def one_liner
     num_of_lines_needed == 1
+  end
+
+  def insert_file_name(files)
+    files.map { |file| file.ljust(max_name_length, ' ') }.join(' ')
   end
 
   def render_long_format
