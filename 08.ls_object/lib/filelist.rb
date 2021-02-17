@@ -3,8 +3,6 @@
 require_relative 'filedata'
 
 class FileList
-  attr_reader :dirname, :files
-
   def initialize(dirname)
     @dirname = dirname || Dir.pwd
   end
@@ -20,4 +18,8 @@ class FileList
   def without_dotfile
     @files = Dir.glob('*', base: dirname)
   end
+
+  private
+
+  attr_reader :dirname, :files
 end
