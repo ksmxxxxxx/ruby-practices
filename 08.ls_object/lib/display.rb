@@ -94,8 +94,8 @@ class Display
 
   def column_line_count
     line_count = (file_count / column_count.to_f).round
-    row_length = max_name_length * column_count
-    row_length > terminal_width || line_count.zero? ? line_count + 1 : line_count
+    column_length = max_name_length * column_count
+    column_length > terminal_width || line_count.zero? ? line_count + 1 : line_count
   end
 
   def column_count
