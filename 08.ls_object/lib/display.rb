@@ -38,7 +38,7 @@ class Display
 
   # ここらへん@filesに渡しまくってるけど、一瞬メソッドのレシーバを渡せばいいだけでは？って思ったけど、ls.rbのオプションでインスタンス変数（メソッド）に入ってくる中身が変わるので、このままでいいのかも知れないとおもったけどどうなんだろう…
   def list_file_stat
-    @files = list.file_stat
+    @files = list.file_stats
   end
 
   def list_contain_dotfile

@@ -7,7 +7,7 @@ class FileList
     @dirname = dirname || Dir.pwd
   end
 
-  def file_stat
+  def file_stats
     files.map { |fname| FileData.new(dirname, fname) }
   end
 
