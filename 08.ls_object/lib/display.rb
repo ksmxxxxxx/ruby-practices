@@ -60,47 +60,21 @@ class Display
 
   def long_format_of(file)
     [
-      file.filetype_permission.ljust(filetype_permission_column_width, ' '),
-      file.nlink.rjust(nlink_column_width + 2, ' '),
+      file.filetype_permission.ljust(column_width(:filetype_permission), ' '),
+      file.nlink.rjust(column_width(:nlink) + 2, ' '),
       ' ',
-      file.uid.ljust(uid_column_width + 2, ' '),
-      file.gid.ljust(gid_column_width + 2, ' '),
-      file.size.rjust(size_column_width, ' '),
+      file.uid.ljust(column_width(:uid) + 2, ' '),
+      file.gid.ljust(column_width(:gid) + 2, ' '),
+      file.size.rjust(column_width(:size), ' '),
       ' ',
-      file.date.rjust(date_column_width, ' '),
+      file.date.rjust(column_width(:date), ' '),
       ' ',
       file.name_or_symlink
     ].join
   end
 
-  # **_column_width、同じことをしているので、`column_width(method)`みたいなメソッドにしていい感じにしたかった
-
-  def name_or_symlink_column_width
-    files.map { |file| file.name_or_symlink.length }.max
-  end
-
-  def date_column_width
-    files.map { |file| file.date.length }.max
-  end
-
-  def size_column_width
-    files.map { |file| file.size.length }.max
-  end
-
-  def gid_column_width
-    files.map { |file| file.gid.length }.max
-  end
-
-  def uid_column_width
-    files.map { |file| file.uid.length }.max
-  end
-
-  def nlink_column_width
-    files.map { |file| file.nlink.length }.max
-  end
-
-  def filetype_permission_column_width
-    files.map { |file| file.filetype_permission.length }.max
+  def column_width(attribute)
+    files.map { |file| file.public_send(attribute).length }.max
   end
 
   def blocks
