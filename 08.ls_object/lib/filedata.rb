@@ -38,7 +38,7 @@ class FileData
     @blocks = fs.blocks
   end
 
-  def date
+  def last_modified
     time_or_year = older_than_month?(6) ? ' %Y' : '%H:%M'
     updated_at.strftime("%_m %_d #{time_or_year}")
   end

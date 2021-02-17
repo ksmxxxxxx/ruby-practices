@@ -68,7 +68,7 @@ class Display
       file.gid.ljust(column_max_width(:gid) + 2, ' '),
       file.size.rjust(column_max_width(:size), ' '),
       ' ',
-      file.date.rjust(column_max_width(:date), ' '),
+      file.last_modified.rjust(column_max_width(:last_modified), ' '),
       ' ',
       file.name_or_symlink
     ].join
