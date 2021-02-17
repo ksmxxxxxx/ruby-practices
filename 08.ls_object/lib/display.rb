@@ -33,7 +33,7 @@ class Display
   end
 
   def one_liner?
-    column_line_count <= 1
+    num_of_lines_needed == 1
   end
 
   # ここらへん@filesに渡しまくってるけど、一瞬メソッドのレシーバを渡せばいいだけでは？って思ったけど、ls.rbのオプションでインスタンス変数（メソッド）に入ってくる中身が変わるので、このままでいいのかも知れないとおもったけどどうなんだろう…
@@ -83,16 +83,16 @@ class Display
   end
 
   def transpose_files_row
-    rows = files.each_slice(column_line_count).map { |f| f }
+    rows = files.each_slice(num_of_lines_needed).map { |f| f }
 
-    return unless rows.last.count <= column_line_count
+    return unless rows.last.count <= num_of_lines_needed
 
-    count = column_line_count - rows.last.count
+    count = num_of_lines_needed - rows.last.count
     count.times { rows.last << '' }
     rows.transpose
   end
 
-  def column_line_count
+  def num_of_lines_needed
     line_count = (file_count / column_count.to_f).round
     column_length = max_name_length * column_count
     column_length > terminal_width || line_count.zero? ? line_count + 1 : line_count
