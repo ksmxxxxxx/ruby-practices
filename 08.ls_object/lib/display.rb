@@ -91,8 +91,8 @@ class Display
 
     return if num_of_lines_needed < rows.last.size
 
-    count = num_of_lines_needed - rows.last.count
-    count.times { rows.last << '' }
+    num_of_insert_blank = num_of_lines_needed - rows.last.size
+    num_of_insert_blank.times { rows.last << '' }
     rows.transpose
   end
 
