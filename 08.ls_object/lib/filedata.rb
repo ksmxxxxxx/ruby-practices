@@ -56,9 +56,8 @@ class FileData
   end
 
   def permission
-    mode.to_s(8)[-3, 3].chars.map do |num|
-      PERMISSION_CONVERTING_CODE[num]
-    end.join
+    octal_digits = mode.to_s(8)[-3, 3].chars
+    octal_digits.map { |oct| PERMISSION_CONVERTING_CODE[oct] }.join
   end
 
   def name_or_symlink
