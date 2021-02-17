@@ -11,14 +11,14 @@ class FileData
   }.freeze
 
   PERMISSION_CONVERTING_CODE = {
-    0 => '---',
-    1 => '--x',
-    2 => '-w-',
-    3 => '-wx',
-    4 => 'r--',
-    5 => 'r-x',
-    6 => 'rw-',
-    7 => 'rwx'
+    '0' => '---',
+    '1' => '--x',
+    '2' => '-w-',
+    '3' => '-wx',
+    '4' => 'r--',
+    '5' => 'r-x',
+    '6' => 'rw-',
+    '7' => 'rwx'
   }.freeze
 
   attr_reader :target, :file, :type, :mode, :nlink, :uid, :gid, :size, :updated_at, :blocks
@@ -57,7 +57,7 @@ class FileData
 
   def permission
     mode.to_s(8)[-3, 3].chars.map do |num|
-      PERMISSION_CONVERTING_CODE[num.to_i]
+      PERMISSION_CONVERTING_CODE[num]
     end.join
   end
 
