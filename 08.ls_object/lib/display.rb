@@ -54,14 +54,18 @@ class Display
 
   def render_long_format
     files.map do |file|
-      # ↓ここrubocop先生に怒られてるけど、どうなおしていいもんなのかがわからなかった
-      file.filetype_permission.ljust(filetype_permission_column_width, ' ') +
-        file.nlink.rjust(nlink_column_width + 2, ' ') + ' ' +
-        file.uid.ljust(uid_column_width + 2, ' ') +
-        file.gid.ljust(gid_column_width + 2, ' ') +
-        file.size.rjust(size_column_width, ' ') + ' ' +
-        file.date.rjust(date_column_width, ' ') + ' ' +
+      [
+        file.filetype_permission.ljust(filetype_permission_column_width, ' '),
+        file.nlink.rjust(nlink_column_width + 2, ' '),
+        ' ',
+        file.uid.ljust(uid_column_width + 2, ' '),
+        file.gid.ljust(gid_column_width + 2, ' '),
+        file.size.rjust(size_column_width, ' '),
+        ' ',
+        file.date.rjust(date_column_width, ' '),
+        ' ',
         file.name_or_symlink
+      ].join
     end.join("\n")
   end
 
