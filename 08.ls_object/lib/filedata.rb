@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'etc'
 require 'date'
 
 class FileData
@@ -61,10 +62,12 @@ class FileData
   end
 
   def name_or_symlink
-    if type == 'link'
-      "#{file} -> #{File.readlink(@file_path)}"
-    else
-      file
-    end
+    type == 'link' ? "#{file} -> #{symlink_destnation}" : file
+  end
+
+  private
+
+  def symlink_destnation
+    File.readlink(@file_path)
   end
 end
