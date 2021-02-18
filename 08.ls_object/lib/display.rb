@@ -23,9 +23,7 @@ class Display
   end
 
   def short_format_split_into_columns
-    transpose_files_row.map do |row|
-      insert_file_name(row).rstrip
-    end.join("\n")
+    transpose_files_row.map { |row| insert_file_name(row).rstrip }.join("\n")
   end
 
   def list_reverse
