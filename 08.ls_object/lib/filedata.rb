@@ -4,7 +4,7 @@ require 'etc'
 require 'date'
 
 class FileData
-  FILETYPE_CONVERTING_CODE = {
+  FILETYPE_ABBREV = {
     'file' => '-',
     'directory' => 'd',
     'link' => 'l'
@@ -52,7 +52,7 @@ class FileData
   end
 
   def filetype
-    FILETYPE_CONVERTING_CODE[type]
+    FILETYPE_ABBREV[type]
   end
 
   def permission
