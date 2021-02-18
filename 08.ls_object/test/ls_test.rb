@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 require 'minitest/autorun'
-require './lib/filedata'
-require './lib/filelist'
-require './lib/display'
+require_relative '../lib/display'
 
 class LsTest < Minitest::Test
   TARGET_PATH = 'test/fixtures'
