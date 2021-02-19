@@ -34,9 +34,8 @@ class Display
     files.sort!
   end
 
-  # ここらへん@filesに渡しまくってるけど、一瞬メソッドのレシーバを渡せばいいだけでは？って思ったけど、ls.rbのオプションでインスタンス変数（メソッド）に入ってくる中身が変わるので、このままでいいのかも知れないとおもったけどどうなんだろう…
   def list_file_stat
-    @files = list.file_stats
+    @file_stats = list.file_stats
   end
 
   def list_contain_dotfile
@@ -49,7 +48,7 @@ class Display
 
   private
 
-  attr_reader :list, :files
+  attr_reader :list, :files, :file_stats
 
   def one_liner
     num_of_lines_needed == 1
@@ -60,7 +59,7 @@ class Display
   end
 
   def render_long_format
-    files.map do |file|
+    file_stats.map do |file|
       long_format_of(file)
     end.join("\n")
   end
@@ -81,11 +80,11 @@ class Display
   end
 
   def column_max_width(attribute)
-    files.map { |file| file.public_send(attribute).length }.max
+    file_stats.map { |file| file.public_send(attribute).length }.max
   end
 
   def blocks
-    files.sum(&:blocks)
+    file_stats.sum(&:blocks)
   end
 
   def transpose_files_row
