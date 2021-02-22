@@ -3,7 +3,7 @@
 
 require 'optparse'
 
-require_relative 'display'
+require './lib/display'
 
 class Ls
   attr_reader :display
