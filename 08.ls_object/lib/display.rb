@@ -99,9 +99,33 @@ class Display
   end
 
   def num_of_lines_needed
-    line_count = (file_count / column_count.to_f).round
-    column_length = max_name_length * column_count
-    column_length > terminal_width || line_count.zero? ? line_count + 1 : line_count
+    need_to_add_line ? num_of_lines + 1 : num_of_lines
+  end
+
+  def need_to_add_line
+    !when_balance_of_file_count_of_column ||
+      when_over_length_than_terminal_width ||
+      when_over_length_than_terminal_width_and_balance_of_count_of_column
+  end
+
+  def when_over_length_than_terminal_width
+    columns_length > terminal_width
+  end
+
+  def when_over_length_than_terminal_width_and_balance_of_count_of_column
+    when_over_length_than_terminal_width && !when_balance_of_file_count_of_column
+  end
+
+  def when_balance_of_file_count_of_column
+    (file_count % column_count).zero?
+  end
+
+  def num_of_lines
+    (file_count / column_count.to_f).round
+  end
+
+  def columns_length
+    (max_name_length + 1) * column_count
   end
 
   def column_count
@@ -111,6 +135,8 @@ class Display
       (terminal_width / 16.to_f).round
     elsif max_name_length <= 23
       (terminal_width / 24.to_f).round
+    elsif max_name_length > 24
+      (terminal_width / max_name_length.to_f).round
     end
   end
 
