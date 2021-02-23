@@ -8,14 +8,19 @@ class LsTest < Minitest::Test
   TARGET_PATH_NO_SPRIT = 'test'
 
   def test_ls_short_format_sprit_into_column
-    skip '環境によって表示が変わるので、lsコマンドの実行結果をexpectedとしてテストしたかったが、やり方が見つけられなかったのでこのテストはSkipします'
     expected = <<~TEXT.chomp
-      dir_foobar          dummy_file_002.txt  dummy_file_004.txt  lorem_ipsum_10p.txt lorem_ipsum_2p.txt  symlink_file.txt
-      dummy_file_001.txt  dummy_file_003.txt  dummy_file_005.txt  lorem_ipsum_1p.txt  lorem_ipsum_5p.txt
+      0123456789_0123456789_0123.md                         dummy_file_003.txt                                    lorem_ipsum_2p.txt
+      0123456789_0123456789_0123456789_0123456789_012345.md dummy_file_004.txt                                    lorem_ipsum_5p.txt
+      dir_foobar                                            dummy_file_005.txt                                    symlink_file.txt
+      dummy_file_001.txt                                    lorem_ipsum_10p.txt
+      dummy_file_002.txt                                    lorem_ipsum_1p.txt
     TEXT
     display = Display.new(TARGET_PATH)
     display.list_without_dotfile
-    assert_equal expected, display.short_format_split_into_columns
+
+    IO.stub(:console_size, [0, 178]) do
+      assert_equal expected, display.short_format_split_into_columns
+    end
   end
 
   def test_ls_short_format
@@ -28,26 +33,34 @@ class LsTest < Minitest::Test
   end
 
   def test_ls_display_dotfiles
-    skip '環境によって表示が変わるので、lsコマンドの実行結果をexpectedとしてテストしたかったが、やり方が見つけられなかったのでこのテストはSkipします'
     expected = <<~TEXT.chomp
-      .                   dir_foobar          dummy_file_002.txt  dummy_file_004.txt  lorem_ipsum_10p.txt lorem_ipsum_2p.txt  symlink_file.txt
-      ..                  dummy_file_001.txt  dummy_file_003.txt  dummy_file_005.txt  lorem_ipsum_1p.txt  lorem_ipsum_5p.txt
+      .                                                     dummy_file_001.txt                                    lorem_ipsum_10p.txt
+      ..                                                    dummy_file_002.txt                                    lorem_ipsum_1p.txt
+      0123456789_0123456789_0123.md                         dummy_file_003.txt                                    lorem_ipsum_2p.txt
+      0123456789_0123456789_0123456789_0123456789_012345.md dummy_file_004.txt                                    lorem_ipsum_5p.txt
+      dir_foobar                                            dummy_file_005.txt                                    symlink_file.txt
     TEXT
     display = Display.new(TARGET_PATH)
     display.list_contain_dotfile
-    assert_equal expected, display.short_format_split_into_columns
+    IO.stub(:console_size, [0, 178]) do
+      assert_equal expected, display.short_format_split_into_columns
+    end
   end
 
   def test_ls_reverse
-    skip '環境によって表示が変わるので、lsコマンドの実行結果をexpectedとしてテストしたかったが、やり方が見つけられなかったのでこのテストはSkipします'
     expected = <<~TEXT.chomp
-      symlink_file.txt    lorem_ipsum_2p.txt  lorem_ipsum_10p.txt dummy_file_004.txt  dummy_file_002.txt  dir_foobar
-      lorem_ipsum_5p.txt  lorem_ipsum_1p.txt  dummy_file_005.txt  dummy_file_003.txt  dummy_file_001.txt
+      symlink_file.txt                                      dummy_file_005.txt                                    dir_foobar
+      lorem_ipsum_5p.txt                                    dummy_file_004.txt                                    0123456789_0123456789_0123456789_0123456789_012345.md
+      lorem_ipsum_2p.txt                                    dummy_file_003.txt                                    0123456789_0123456789_0123.md
+      lorem_ipsum_1p.txt                                    dummy_file_002.txt
+      lorem_ipsum_10p.txt                                   dummy_file_001.txt
     TEXT
     display = Display.new(TARGET_PATH)
     display.list_without_dotfile
     display.list_reverse
-    assert_equal expected, display.short_format_split_into_columns
+    IO.stub(:console_size, [0, 178]) do
+      assert_equal expected, display.short_format_split_into_columns
+    end
   end
 
   def test_ls_long_format
