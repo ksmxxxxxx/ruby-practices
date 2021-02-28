@@ -117,11 +117,11 @@ class Display
   end
 
   def when_balance_of_file_count_of_column
-    (file_count % column_count).zero?
+    (files.count % column_count).zero?
   end
 
   def num_of_lines
-    (file_count / column_count.to_f).round
+    (files.count / column_count.to_f).round
   end
 
   def columns_length
@@ -138,10 +138,6 @@ class Display
     elsif max_name_length > 24
       (terminal_width / max_name_length.to_f).round
     end
-  end
-
-  def file_count
-    files.count
   end
 
   def max_name_length
