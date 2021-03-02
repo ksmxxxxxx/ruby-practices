@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'optparse'
+require_relative '../lib/display'
+
+class Wc
+  attr_reader :display
+
+  def show
+    options = parse_options
+    target = if ARGV == []
+               $stdin.read
+             else
+               ARGV
+             end
+
+    @display = Display.new(target)
+
+    options.key?(:l) ? display.linecount : display.wordcount
+  end
+
+  def parse_options
+    opt = OptionParser.new
+    params = {}
+
+    opt.on('-l')
+    opt.parse!(ARGV, into: params)
+    params
+  end
+end
+
+puts Wc.new.show
