@@ -4,8 +4,6 @@ require_relative 'read'
 require_relative 'calc'
 
 class Display
-  attr_reader :data, :calc
-
   def initialize(data)
     read = Read.new(data)
     @data = read.make_data_structure
@@ -35,6 +33,10 @@ class Display
       format_linecount
     end
   end
+
+  private
+
+  attr_reader :data, :calc
 
   def format_wordcount_specified_file_with_total
     [
@@ -91,8 +93,6 @@ class Display
   def format_linecount
     data.linecount.to_s.rjust(8, ' ')
   end
-
-  private
 
   def multiple_files?
     data.count >= 2
