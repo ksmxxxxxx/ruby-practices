@@ -17,7 +17,7 @@ class Wc
 
     @display = Display.new(target)
 
-    options.key?(:l) ? display.linecount : display.wordcount
+    options.key?(:l) ? display.show_linecount : display.show_wordcount
   end
 
   def parse_options

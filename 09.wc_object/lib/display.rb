@@ -4,15 +4,15 @@ require_relative 'read'
 require_relative 'calc'
 
 class Display
-  attr_reader :data, :calcdata
+  attr_reader :data, :calc
 
   def initialize(data)
     read = Read.new(data)
-    @data = read.data_structure
-    @calcdata = Calc.new(data)
+    @data = read.make_data_structure
+    @calc = Calc.new(data)
   end
 
-  def wordcount
+  def show_wordcount
     if specified_file?
       if multiple_files?
         format_wordcount_specified_file_with_total
@@ -24,7 +24,7 @@ class Display
     end
   end
 
-  def linecount
+  def show_linecount
     if specified_file?
       if multiple_files?
         format_linecount_specified_file_with_total
@@ -40,9 +40,9 @@ class Display
     [
       format_wordcount_specified_file,
       "\n",
-      calcdata.linecount_total.to_s.rjust(8, ' '),
-      calcdata.wordcount_total.to_s.rjust(8, ' '),
-      calcdata.stringcount_total.to_s.rjust(8, ' '),
+      calc.makeup_linecount_total.to_s.rjust(8, ' '),
+      calc.makeup_wordcount_total.to_s.rjust(8, ' '),
+      calc.makeup_stringcount_total.to_s.rjust(8, ' '),
       ' ',
       'total'
     ].join
@@ -72,7 +72,7 @@ class Display
     [
       format_linecount_specified_file,
       "\n",
-      calcdata.linecount_total.to_s.rjust(8, ' '),
+      calc.makeup_linecount_total.to_s.rjust(8, ' '),
       ' ',
       'total'
     ].join

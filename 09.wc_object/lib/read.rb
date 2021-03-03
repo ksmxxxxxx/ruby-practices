@@ -9,17 +9,17 @@ class Read
     @data = data
   end
 
-  def data_structure
-    data.instance_of?(Array) ? file_stratures : text_structure
+  def make_data_structure
+    data.instance_of?(Array) ? make_file_stratures : make_text_structure
   end
 
   private
 
-  def text_structure
+  def make_text_structure
     InputData.new('', data.count("\n"), data.split(' ').count, data.bytesize)
   end
 
-  def file_stratures
+  def make_file_stratures
     files = data
     files.map do |file|
       filedata = File.new(file).read
