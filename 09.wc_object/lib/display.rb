@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require_relative 'read'
+require_relative 'reader'
 require_relative 'calculation'
 
 module Wc
   class Display
     def initialize(data)
-      read = Read.new(data)
+      read = Reader.new(data)
       @data = read.make_data_structure
       @calc = Calculation.new(data)
     end

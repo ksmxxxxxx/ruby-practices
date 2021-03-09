@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require_relative 'read'
+require_relative 'reader'
 
 module Wc
   class Calculation
     attr_reader :data
 
     def initialize(data)
-      readfile = Read.new(data)
+      readfile = Reader.new(data)
       @data = readfile.make_data_structure
     end
 

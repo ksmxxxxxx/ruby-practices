@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Wc
-  class Read
+  class Reader
     InputData = Struct.new(:filename, :linecount, :wordcount, :stringcount)
 
     attr_reader :data
