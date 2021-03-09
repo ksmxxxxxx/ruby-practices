@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 require_relative 'read'
-require_relative 'calc'
+require_relative 'calculation'
 
 class Display
   def initialize(data)
     read = Read.new(data)
     @data = read.make_data_structure
-    @calc = Calc.new(data)
+    @calc = Calculation.new(data)
   end
 
   def show_wordcount
@@ -42,9 +42,9 @@ class Display
     [
       format_wordcount_specified_file,
       "\n",
-      calc.makeup_linecount_total.to_s.rjust(8, ' '),
-      calc.makeup_wordcount_total.to_s.rjust(8, ' '),
-      calc.makeup_stringcount_total.to_s.rjust(8, ' '),
+      calc.decorate_linecount_total.to_s.rjust(8, ' '),
+      calc.decorate_wordcount_total.to_s.rjust(8, ' '),
+      calc.decorate_stringcount_total.to_s.rjust(8, ' '),
       ' ',
       'total'
     ].join
@@ -74,7 +74,7 @@ class Display
     [
       format_linecount_specified_file,
       "\n",
-      calc.makeup_linecount_total.to_s.rjust(8, ' '),
+      calc.decorate_linecount_total.to_s.rjust(8, ' '),
       ' ',
       'total'
     ].join
