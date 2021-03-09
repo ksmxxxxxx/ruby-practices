@@ -4,30 +4,32 @@
 require 'optparse'
 require_relative '../lib/display'
 
-class Wc
-  attr_reader :display
+module Wc
+  class Command
+    attr_reader :display
 
-  def show
-    options = parse_options
-    target = if ARGV == []
-               $stdin.read
-             else
-               ARGV
-             end
+    def show
+      options = parse_options
+      target = if ARGV == []
+                 $stdin.read
+               else
+                 ARGV
+               end
 
-    @display = Display.new(target)
+      @display = Wc::Display.new(target)
 
-    options.key?(:l) ? display.show_linecount : display.show_wordcount
-  end
+      options.key?(:l) ? display.show_linecount : display.show_wordcount
+    end
 
-  def parse_options
-    opt = OptionParser.new
-    params = {}
+    def parse_options
+      opt = OptionParser.new
+      params = {}
 
-    opt.on('-l')
-    opt.parse!(ARGV, into: params)
-    params
+      opt.on('-l')
+      opt.parse!(ARGV, into: params)
+      params
+    end
   end
 end
 
-puts Wc.new.show
+puts Wc::Command.new.show

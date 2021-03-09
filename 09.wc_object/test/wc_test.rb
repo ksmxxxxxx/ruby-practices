@@ -10,13 +10,13 @@ class WordcountTest < Minitest::Test
 
   def test_wordcount_with_text
     expected = '       0       7      41'
-    display_text = Display.new(TARGET_TEXT)
+    display_text = Wc::Display.new(TARGET_TEXT)
     assert_equal expected, display_text.show_wordcount
   end
 
   def test_wordcount_with_file
     expected = '      10     568    3870 test/fixtures/lorem_ipsum_5p.txt'
-    display_file = Display.new(TARGET_FILENAME)
+    display_file = Wc::Display.new(TARGET_FILENAME)
     assert_equal expected, display_file.show_wordcount
   end
 
@@ -26,19 +26,19 @@ class WordcountTest < Minitest::Test
       19    1003    6778 test/fixtures/lorem_ipsum_10p.txt
       29    1571   10648 total
     TEXT
-    display_files = Display.new(MULTIPLE_TARGET_FILENAME)
+    display_files = Wc::Display.new(MULTIPLE_TARGET_FILENAME)
     assert_equal expected, display_files.show_wordcount
   end
 
   def test_linecount_with_text
     expected = '       0'
-    display_text = Display.new(TARGET_TEXT)
+    display_text = Wc::Display.new(TARGET_TEXT)
     assert_equal expected, display_text.show_linecount
   end
 
   def test_linecount_with_file
     expected = '      10 test/fixtures/lorem_ipsum_5p.txt'
-    display_file = Display.new(TARGET_FILENAME)
+    display_file = Wc::Display.new(TARGET_FILENAME)
     assert_equal expected, display_file.show_linecount
   end
 
@@ -48,7 +48,7 @@ class WordcountTest < Minitest::Test
       19 test/fixtures/lorem_ipsum_10p.txt
       29 total
     TEXT
-    display_files = Display.new(MULTIPLE_TARGET_FILENAME)
+    display_files = Wc::Display.new(MULTIPLE_TARGET_FILENAME)
     assert_equal expected, display_files.show_linecount
   end
 end
